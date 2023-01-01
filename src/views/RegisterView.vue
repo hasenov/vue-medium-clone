@@ -1,0 +1,83 @@
+<script>
+import { mapActions, mapState } from 'pinia';
+import { RouterLink } from 'vue-router'
+import { useAuthStore } from '../stores/auth';
+import McvValidationErrors from '@/components/ValidationErrors.vue';
+
+export default {
+    name: 'McvRegister',
+    components: {
+        McvValidationErrors
+    },
+    methods: {
+        onSubmit() {
+            this.register({
+                email: this.email,
+                username: this.username,
+                password: this.password
+            }).then((user) => {
+                this.$router.push( {name: 'home' });
+            })
+        },
+        ...mapActions(useAuthStore, ['register']),
+    },
+    data() {
+        return {
+            email: '',
+            username: '',
+            password: '',
+        }
+    },
+    computed: {
+        ...mapState(useAuthStore, ['isSubmitting', 'validationErrors']),
+    },
+}
+</script>
+
+<template>
+<div class="auth-page">
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">Sign up</h1>
+                <p class="text-xs-center">
+                    <RouterLink :to="{name: 'login'}">Have an account?</RouterLink>
+                </p>
+                <McvValidationErrors v-if="validationErrors" :validationErrors="validationErrors" />
+                <form @submit.prevent="onSubmit">
+                    <fieldset class="form-group">
+                        <input
+                            class="form-control form-control-lg"
+                            type="text"
+                            placeholder="Username"
+                            v-model="username"
+                        />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input
+                            class="form-control form-control-lg"
+                            type="text"
+                            placeholder="Email"
+                            v-model="email"
+                        />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input
+                            class="form-control form-control-lg"
+                            type="password"
+                            placeholder="Password"
+                            v-model="password"
+                        />
+                    </fieldset>
+                    <button
+                        class="btn btn-lg btn-primary pull-xs-right"
+                        :disabled="this.isSubmitting"
+                        >
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
