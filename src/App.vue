@@ -1,12 +1,16 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-	<nav>
-		<RouterLink to="/">Home</RouterLink>
-		<RouterLink to="/register">Register</RouterLink>
-	</nav>
+	<McvTopbar />
 
 	<RouterView />
 </template>
+
+<script>
+import McvTopbar from '@/components/Topbar.vue'
+
+export default {
+	name: 'McvApp',
+	components: {
+		McvTopbar
+	}
+}
+</script>
