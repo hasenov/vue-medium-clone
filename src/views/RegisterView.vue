@@ -71,7 +71,7 @@ export default {
                     </fieldset>
                     <button
                         class="btn btn-lg btn-primary pull-xs-right"
-                        :disabled="this.isSubmitting"
+                        :disabled="isSubmitting"
                         >
                         Sign Up
                     </button>
