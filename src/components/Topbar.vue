@@ -2,13 +2,14 @@
 <nav class="navbar navbar-light">
     <div class="container">
 
-        <RouterLink :to="{name: 'home'}" class="navbar-brand">Medium Clone</RouterLink>
+        <RouterLink :to="{name: 'home'}" exact class="navbar-brand">Medium Clone</RouterLink>
     
         <ul class="nav navbar-nav pull-xs-right">
-            <template v-if="!isLoggedIn">
-                <li class="nav-item">
-                    <RouterLink :to="{name: 'home'}" exact class="nav-link" active-class="active">Home</RouterLink>
-                </li>
+            <li class="nav-item">
+                <RouterLink :to="{name: 'home'}" exact class="nav-link" active-class="active">Home</RouterLink>
+            </li>
+
+            <template v-if="isAnonymous">
                 <li class="nav-item">
                     <RouterLink :to="{name: 'login'}" class="nav-link" active-class="active">Sign in</RouterLink>
                 </li>
@@ -17,10 +18,7 @@
                 </li>
             </template>
 
-            <template v-if="isLoggedIn">
-                <li class="nav-item">
-                    <RouterLink :to="{name: 'home'}" exact class="nav-link" active-class="active">Home</RouterLink>
-                </li>
+            <template v-if="isLoggedInBoolean">
                 <li class="nav-item">
                     <RouterLink :to="{name: 'createArticle'}" class="nav-link" active-class="active">
                         <i class="ion-compose"></i>
@@ -53,7 +51,7 @@ import { useAuthStore } from '../stores/auth';
 export default {
     name: 'McvTopbar',
     computed: {
-        ...mapState(useAuthStore, ['isLoggedIn', 'currentUser'])
+        ...mapState(useAuthStore, ['isLoggedInBoolean', 'isAnonymous', 'currentUser'])
     }
 }
 </script>

@@ -8,7 +8,16 @@ export const useAuthStore = defineStore('auth', {
 			currentUser: null,
 			isLoggedIn: null,
 			isSubmitting: false,
+			isLoading: false,
 			validationErrors: null,
+		}
+	},
+	getters: {
+		isLoggedInBoolean: (state) => {
+			return Boolean(state.isLoggedIn);
+		},
+		isAnonymous: (state) => {
+			return state.isLoggedIn === false;
 		}
 	},
 	actions: {
@@ -46,6 +55,24 @@ export const useAuthStore = defineStore('auth', {
 					.catch((res) => {
 						this.validationErrors = res.response.data.errors;
 						this.isSubmitting = false;
+					})
+			});
+		},
+
+		getCurrentUser() {
+			return new Promise((resolve, reject) => {
+				this.isLoading = true;
+				authApi.getCurrentUser()
+					.then((res) => {
+						this.isLoading = false;
+						this.currentUser = res.data.user;
+						this.isLoggedIn = true;
+						resolve(res.data.user);
+					})
+					.catch(() => {
+						this.isLoading = false;
+						this.isLoggedIn = false;
+						this.currentUser = null;
 					})
 			});
 		},
