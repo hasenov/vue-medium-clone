@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapState } from 'pinia';
+import { mapActions, mapState, mapStores } from 'pinia';
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth';
 import McvValidationErrors from '@/components/ValidationErrors.vue';
@@ -15,7 +15,7 @@ export default {
                 email: this.email,
                 password: this.password
             }).then((user) => {
-                this.$router.push({name: 'home' });
+                this.$router.push({name: 'globalFeed' });
             })
         },
         ...mapActions(useAuthStore, ['login'])
@@ -27,7 +27,11 @@ export default {
         }
     },
     computed: {
-        ...mapState(useAuthStore, ['isSubmitting', 'validationErrors'])
+        ...mapState(useAuthStore, ['isSubmitting', 'validationErrors']),
+        ...mapStores(useAuthStore)
+    },
+    beforeUnmount() {
+        this.authStore.validationErrors = null;
     }
 }
 </script>

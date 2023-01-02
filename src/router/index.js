@@ -1,16 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import GlobalFeedView from '../views/GlobalFeedView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
     {
       path: '/register',
       name: 'register',
@@ -22,8 +17,33 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/createArticle',
+      path: '/',
+      name: 'globalFeed',
+      component: GlobalFeedView
+    },
+    {
+      path: '/feed',
+      name: 'yourFeed',
+      component: GlobalFeedView
+    },
+    {
+      path: '/tags/:slug',
+      name: 'tag',
+      component: GlobalFeedView
+    },
+    {
+      path: '/articles/new',
       name: 'createArticle',
+      component: LoginView
+    },
+    {
+      path: '/articles/:slug',
+      name: 'article',
+      component: LoginView
+    },
+    {
+      path: '/articles/:slug/edit',
+      name: 'editArticle',
       component: LoginView
     },
     {
@@ -32,8 +52,13 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/userProfile',
+      path: '/profiles/:slug',
       name: 'userProfile',
+      component: LoginView
+    },
+    {
+      path: '/profiles/:slug/favorites',
+      name: 'userProfileFavorites',
       component: LoginView
     },
     // {

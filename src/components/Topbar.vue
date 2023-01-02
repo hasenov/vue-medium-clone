@@ -2,11 +2,11 @@
 <nav class="navbar navbar-light">
     <div class="container">
 
-        <RouterLink :to="{name: 'home'}" exact class="navbar-brand">Medium Clone</RouterLink>
+        <RouterLink :to="{name: 'globalFeed'}" exact class="navbar-brand">Medium Clone</RouterLink>
     
         <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item">
-                <RouterLink :to="{name: 'home'}" exact class="nav-link" active-class="active">Home</RouterLink>
+                <RouterLink :to="{name: 'globalFeed'}" exact class="nav-link" active-class="active">Home</RouterLink>
             </li>
 
             <template v-if="isAnonymous">
