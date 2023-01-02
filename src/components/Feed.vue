@@ -36,7 +36,7 @@
                 TAG LIST
             </RouterLink>
         </div>
-        pagination
+        <McvPagination :total="data.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
     </div>
 </div>
 </template>
@@ -44,9 +44,20 @@
 <script>
 import { useFeedStore } from '@/stores/feed';
 import { mapActions, mapState } from 'pinia';
+import McvPagination from '@/components/Pagination.vue';
+import { limit } from '@/helpers/vars';
+import queryString from 'query-string';
 
 export default {
     name: 'McvFeed',
+    components: {
+        McvPagination
+    },
+    data() {
+        return {
+            limit,
+        }
+    },
     props: {
         apiUrl: {
             type: String,
@@ -54,15 +65,39 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useFeedStore, ['fetchFeed'])
+        getFeed() {
+            const parsedUrl = queryString.parseUrl(this.apiUrl);
+            const stringifiedParams = queryString.stringify({
+                limit,
+                offset: this.offset,
+                ...parsedUrl.query
+            });
+            const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+            this.fetchFeed({
+                url: apiUrlWithParams
+            });
+        },
+        ...mapActions(useFeedStore, ['fetchFeed']),
     },
     computed: {
-        ...mapState(useFeedStore, ['data', 'isLoading', 'error'])
+        ...mapState(useFeedStore, ['data', 'isLoading', 'error']),
+        currentPage() {
+            return Number(this.$route.query.page || '1');
+        },
+        baseUrl() {
+            return this.$route.path;
+        },
+        offset() {
+            return this.currentPage * limit - limit;
+        }
+    },
+    watch: {
+        currentPage() {
+            this.getFeed();
+        }
     },
     mounted() {
-        this.fetchFeed({
-            url: this.apiUrl
-        });
+        this.getFeed();
     }
 }
 </script>
