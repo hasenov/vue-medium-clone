@@ -5,20 +5,20 @@
 </template>
 
 <script>
-import McvTopbar from '@/components/Topbar.vue'
-import { mapActions } from 'pinia';
-import { useAuthStore } from './stores/auth';
+import McvTopbar from "@/components/Topbar.vue";
+import { mapActions } from "pinia";
+import { useAuthStore } from "./stores/auth";
 
 export default {
-	name: 'McvApp',
+	name: "McvApp",
 	components: {
-		McvTopbar
+		McvTopbar,
 	},
 	methods: {
-		...mapActions(useAuthStore, ['getCurrentUser'])
+		...mapActions(useAuthStore, ["getCurrentUser"]),
 	},
 	mounted() {
 		this.getCurrentUser();
-	}
-}
+	},
+};
 </script>

@@ -1,9 +1,9 @@
-import axios from './axios';
+import axios from "./axios";
 
 function fetchFeed(url) {
-    return axios.get(url);
+	return axios.get(url);
 }
 
 export default {
-    fetchFeed
-}
+	fetchFeed,
+};
