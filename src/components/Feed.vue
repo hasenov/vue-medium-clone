@@ -5,11 +5,7 @@
 		<McvError v-if="error" />
 
 		<div v-if="data">
-			<div
-				class="article-preview"
-				v-for="(article, index) in data.articles"
-				:key="index"
-			>
+			<div class="article-preview" v-for="(article, index) in data.articles" :key="index">
 				<div class="article-meta">
 					<RouterLink
 						:to="{
@@ -17,10 +13,7 @@
 							params: { slug: article.author.username },
 						}"
 					>
-						<img
-							:src="article.author.image"
-							:alt="article.author.username"
-						/>
+						<img :src="article.author.image" :alt="article.author.username" />
 					</RouterLink>
 					<div class="info">
 						<RouterLink
@@ -46,15 +39,10 @@
 					<h2>{{ article.title }}</h2>
 					<p>{{ article.description }}</p>
 					<span>Read more...</span>
-					TAG LIST
+					<McvTagList :tagList="article.tagList" />
 				</RouterLink>
 			</div>
-			<McvPagination
-				:total="data.articlesCount"
-				:limit="limit"
-				:currentPage="currentPage"
-				:url="baseUrl"
-			/>
+			<McvPagination :total="data.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
 		</div>
 	</div>
 </template>
@@ -67,6 +55,7 @@ import queryString from "query-string";
 import McvPagination from "@/components/Pagination.vue";
 import McvLoading from "@/components/Loading.vue";
 import McvError from "@/components/Error.vue";
+import McvTagList from "@/components/TagList.vue";
 
 export default {
 	name: "McvFeed",
@@ -74,6 +63,7 @@ export default {
 		McvPagination,
 		McvLoading,
 		McvError,
+		McvTagList,
 	},
 	data() {
 		return {

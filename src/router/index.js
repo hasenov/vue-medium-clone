@@ -4,6 +4,9 @@ import YourFeedView from "../views/YourFeedView.vue";
 import TagFeedView from "../views/TagFeedView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
+import Article from "../views/ArticleView.vue";
+import CreateArticle from "../views/CreateArticleView.vue";
+import EditArticle from "../views/EditArticleView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,17 +39,17 @@ const router = createRouter({
 		{
 			path: "/articles/new",
 			name: "createArticle",
-			component: LoginView,
+			component: CreateArticle,
 		},
 		{
 			path: "/articles/:slug",
 			name: "article",
-			component: LoginView,
+			component: Article,
 		},
 		{
 			path: "/articles/:slug/edit",
 			name: "editArticle",
-			component: LoginView,
+			component: EditArticle,
 		},
 		{
 			path: "/settings",
