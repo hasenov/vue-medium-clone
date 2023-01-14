@@ -14,3 +14,11 @@ export const setItem = (key, data) => {
 		console.log("Error setting data to localStorage", error);
 	}
 };
+
+export const removeItem = (key) => {
+	try {
+		localStorage.removeItem(key);
+	} catch (error) {
+		console.log("Error removing data from localStorage", error);
+	}
+};

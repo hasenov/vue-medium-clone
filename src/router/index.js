@@ -7,6 +7,7 @@ import LoginView from "../views/LoginView.vue";
 import Article from "../views/ArticleView.vue";
 import CreateArticle from "../views/CreateArticleView.vue";
 import EditArticle from "../views/EditArticleView.vue";
+import Settings from "../views/SettingsView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,7 +55,7 @@ const router = createRouter({
 		{
 			path: "/settings",
 			name: "settings",
-			component: LoginView,
+			component: Settings,
 		},
 		{
 			path: "/profiles/:slug",

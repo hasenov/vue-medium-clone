@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import authApi from "@/api/auth";
-import { setItem } from "@/helpers/persistanceStorage";
+import { setItem, removeItem } from "@/helpers/persistanceStorage";
+import { useSettingsStore } from "./settings";
 
 export const useAuthStore = defineStore("auth", {
 	state: () => {
@@ -77,6 +78,35 @@ export const useAuthStore = defineStore("auth", {
 						this.isLoggedIn = false;
 						this.currentUser = null;
 					});
+			});
+		},
+
+		updateCurrentUser({ currentUserInput }) {
+			const settings = useSettingsStore();
+			return new Promise((resolve, reject) => {
+				settings.isSubmitting = true;
+				settings.validationErrors = null;
+				authApi
+					.updateCurrentUser(currentUserInput)
+					.then((user) => {
+						settings.isSubmitting = false;
+						this.currentUser = user;
+						resolve(user);
+						setItem("accessToken", user.token);
+					})
+					.catch((result) => {
+						settings.isSubmitting = false;
+						settings.validationErrors = result.response.data.errors;
+					});
+			});
+		},
+
+		logout() {
+			return new Promise((resolve, reject) => {
+				this.currentUser = null;
+				this.isLoggedIn = false;
+				removeItem("accessToken");
+				resolve();
 			});
 		},
 	},
