@@ -41,11 +41,7 @@
 				<i class="ion-plus-round"></i> Unfollow
 				{{ article.author.username }}
 			</button>
-			<button class="btn btn-sm btn-outline-primary">
-				<i class="ion-heart"></i>
-				<span>Favorite Article </span>
-				<span class="counter">{{ article.favoritesCount }}</span>
-			</button>
+			<McvAddToFavorites :isFavorited="article.favorited" :articleSlug="article.slug" :favoritesCount="article.favoritesCount" isWithTitle="true" />
 		</span>
 	</div>
 </template>
@@ -54,9 +50,13 @@
 import { mapActions, mapState } from "pinia";
 import { useAuthStore } from "../stores/auth";
 import { useArticleStore } from "../stores/article";
+import McvAddToFavorites from "@/components/AddToFavorites.vue";
 
 export default {
 	name: "McvArticleMeta",
+	components: {
+		McvAddToFavorites,
+	},
 	props: {
 		article: {
 			type: Object,

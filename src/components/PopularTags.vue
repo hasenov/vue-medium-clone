@@ -3,7 +3,7 @@
 		<p>Popular Tags</p>
 
 		<div class="tag-list" v-if="data">
-			<RouterLink :to="{ name: 'tag', params: { slug: tag } }" class="tag-default tag-pill" v-for="tag in data" :key="tag" v-if="tag">{{ tag }}</RouterLink>
+			<RouterLink :to="{ name: 'tag', params: { slug: tag } }" class="tag-default tag-pill" v-for="tag in data" :key="tag">{{ tag }}</RouterLink>
 		</div>
 
 		<McvLoading v-if="isLoading" />

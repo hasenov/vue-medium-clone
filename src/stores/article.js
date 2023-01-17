@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import articleApi from "@/api/article";
+import { useFeedStore } from "./feed";
 
 export const useArticleStore = defineStore("article", {
 	state: () => {
@@ -26,6 +27,24 @@ export const useArticleStore = defineStore("article", {
 				articleApi.deleteArticle(slug).then(() => {
 					this.data = null;
 					resolve();
+				});
+			});
+		},
+		favoriteArticle({ slug, isFavorited }) {
+			return new Promise((resolve) => {
+				const feed = useFeedStore();
+				const promise = isFavorited ? articleApi.unFavoriteArticle(slug) : articleApi.favoriteArticle(slug);
+				promise.then((article) => {
+					this.data = article;
+					if (feed.data) {
+						feed.data.articles = feed.data.articles.map((item) => {
+							if (item.slug === slug) {
+								return article;
+							}
+							return item;
+						});
+					}
+					resolve(article);
 				});
 			});
 		},

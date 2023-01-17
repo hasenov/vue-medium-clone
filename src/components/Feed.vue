@@ -27,7 +27,9 @@
 						</RouterLink>
 						<span class="date">{{ article.createdAt }}</span>
 					</div>
-					<div class="pull-xs-right">Addd to favorites</div>
+					<div class="pull-xs-right">
+						<McvAddToFavorites :isFavorited="article.favorited" :articleSlug="article.slug" :favoritesCount="article.favoritesCount" />
+					</div>
 				</div>
 				<RouterLink
 					:to="{
@@ -56,6 +58,7 @@ import McvPagination from "@/components/Pagination.vue";
 import McvLoading from "@/components/Loading.vue";
 import McvError from "@/components/Error.vue";
 import McvTagList from "@/components/TagList.vue";
+import McvAddToFavorites from "@/components/AddToFavorites.vue";
 
 export default {
 	name: "McvFeed",
@@ -64,6 +67,7 @@ export default {
 		McvLoading,
 		McvError,
 		McvTagList,
+		McvAddToFavorites,
 	},
 	data() {
 		return {
