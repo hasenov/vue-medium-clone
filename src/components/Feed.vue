@@ -103,7 +103,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.getFeed(this.apiUrl);
+		this.getFeed();
 	},
 };
 </script>
