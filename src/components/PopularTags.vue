@@ -6,9 +6,9 @@
 			<RouterLink :to="{ name: 'tag', params: { slug: tag } }" class="tag-default tag-pill" v-for="tag in data" :key="tag">{{ tag }}</RouterLink>
 		</div>
 
-		<McvLoading v-if="isLoading" />
+		<mcv-loading v-if="isLoading" />
 
-		<McvError v-if="error" />
+		<mcv-error v-if="error" />
 	</div>
 </template>
 

@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import GlobalFeedView from "../views/GlobalFeedView.vue";
-import YourFeedView from "../views/YourFeedView.vue";
-import TagFeedView from "../views/TagFeedView.vue";
-import RegisterView from "../views/RegisterView.vue";
-import LoginView from "../views/LoginView.vue";
-import Article from "../views/ArticleView.vue";
-import CreateArticle from "../views/CreateArticleView.vue";
-import EditArticle from "../views/EditArticleView.vue";
-import Settings from "../views/SettingsView.vue";
+import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
+import Article from "../views/Article.vue";
+import CreateArticle from "../views/CreateArticle.vue";
+import EditArticle from "../views/EditArticle.vue";
+import Settings from "../views/Settings.vue";
+import Home from "../views/Home.vue";
+import Profile from "../views/Profile.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,27 +14,27 @@ const router = createRouter({
 		{
 			path: "/register",
 			name: "register",
-			component: RegisterView,
+			component: Register,
 		},
 		{
 			path: "/login",
 			name: "login",
-			component: LoginView,
+			component: Login,
 		},
 		{
 			path: "/",
 			name: "globalFeed",
-			component: GlobalFeedView,
+			component: Home,
 		},
 		{
 			path: "/feed",
 			name: "yourFeed",
-			component: YourFeedView,
+			component: Home,
 		},
 		{
 			path: "/tags/:slug",
 			name: "tag",
-			component: TagFeedView,
+			component: Home,
 		},
 		{
 			path: "/articles/new",
@@ -60,12 +59,12 @@ const router = createRouter({
 		{
 			path: "/profiles/:slug",
 			name: "userProfile",
-			component: LoginView,
+			component: Profile,
 		},
 		{
 			path: "/profiles/:slug/favorites",
 			name: "userProfileFavorites",
-			component: LoginView,
+			component: Profile,
 		},
 		// {
 		//   path: '/about',

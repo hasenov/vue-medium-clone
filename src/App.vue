@@ -1,7 +1,7 @@
 <template>
-	<McvTopbar />
+	<mcv-topbar />
 
-	<RouterView />
+	<router-view />
 </template>
 
 <script>

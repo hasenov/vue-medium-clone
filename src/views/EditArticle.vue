@@ -1,6 +1,6 @@
 <template>
-	<McvLoading v-if="isLoading" />
-	<McvArticleForm v-if="article" :initialValues="initialValues" :errors="validationErrors" :isSubmitting="isSubmitting" @articleSubmit="onSubmit" />
+	<mcv-loading v-if="isLoading" />
+	<mcv-article-form v-if="article" :initialValues="initialValues" :errors="validationErrors" :isSubmitting="isSubmitting" @articleSubmit="onSubmit" />
 </template>
 
 <script>

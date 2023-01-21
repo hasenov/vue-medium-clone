@@ -1,51 +1,33 @@
 <template>
-	<div>
-		<McvLoading v-if="isLoading" />
-
-		<McvError v-if="error" />
-
-		<div v-if="data">
-			<div class="article-preview" v-for="(article, index) in data.articles" :key="index">
-				<div class="article-meta">
-					<RouterLink
-						:to="{
-							name: 'userProfile',
-							params: { slug: article.author.username },
-						}"
-					>
-						<img :src="article.author.image" :alt="article.author.username" />
-					</RouterLink>
-					<div class="info">
-						<RouterLink
-							:to="{
-								name: 'userProfile',
-								params: { slug: article.author.username },
-							}"
-							class="author"
-						>
-							{{ article.author.username }}
-						</RouterLink>
-						<span class="date">{{ article.createdAt }}</span>
-					</div>
-					<div class="pull-xs-right">
-						<McvAddToFavorites :isFavorited="article.favorited" :articleSlug="article.slug" :favoritesCount="article.favoritesCount" />
-					</div>
-				</div>
+	<div class="articles-toggle">
+		<ul class="nav nav-pills outline-active">
+			<li class="nav-item" v-for="tab in tabs">
 				<RouterLink
-					:to="{
-						name: 'article',
-						params: { slug: article.slug },
+					:to="tab.to"
+					class="nav-link"
+					:class="{
+						active: routeName === tab.to.name,
 					}"
-					class="preview-link"
 				>
-					<h2>{{ article.title }}</h2>
-					<p>{{ article.description }}</p>
-					<span>Read more...</span>
-					<McvTagList :tagList="article.tagList" />
+					<i :class="tab.icon" v-if="tab.icon"></i>
+					{{ tab.title }}
 				</RouterLink>
-			</div>
-			<McvPagination :total="data.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
-		</div>
+			</li>
+		</ul>
+	</div>
+
+	<mcv-loading v-if="isLoading" />
+
+	<mcv-error v-if="error" />
+
+	<div v-if="data">
+		<template v-if="data.articlesCount > 0">
+			<mcv-article-preview v-for="(article, index) in data.articles" :article="article" :key="index" />
+			<mcv-pagination :total="data.articlesCount" :limit="limit" :currentPage="currentPage" :url="baseUrl" />
+		</template>
+		<template v-else>
+			<mcv-error :message="'No articles are here... yet.'" />
+		</template>
 	</div>
 </template>
 
@@ -57,8 +39,7 @@ import queryString from "query-string";
 import McvPagination from "@/components/Pagination.vue";
 import McvLoading from "@/components/Loading.vue";
 import McvError from "@/components/Error.vue";
-import McvTagList from "@/components/TagList.vue";
-import McvAddToFavorites from "@/components/AddToFavorites.vue";
+import McvArticlePreview from "@/components/ArticlePreview.vue";
 
 export default {
 	name: "McvFeed",
@@ -66,8 +47,7 @@ export default {
 		McvPagination,
 		McvLoading,
 		McvError,
-		McvTagList,
-		McvAddToFavorites,
+		McvArticlePreview,
 	},
 	data() {
 		return {
@@ -77,6 +57,10 @@ export default {
 	props: {
 		apiUrl: {
 			type: String,
+			required: true,
+		},
+		tabs: {
+			type: Array,
 			required: true,
 		},
 	},
@@ -106,6 +90,9 @@ export default {
 		offset() {
 			return this.currentPage * limit - limit;
 		},
+		routeName() {
+			return this.$route.name;
+		},
 	},
 	watch: {
 		currentPage() {
@@ -116,7 +103,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.getFeed();
+		this.getFeed(this.apiUrl);
 	},
 };
 </script>

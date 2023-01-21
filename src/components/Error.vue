@@ -1,5 +1,5 @@
 <template>
-	<div>{{ message }}</div>
+	<div class="error">{{ message }}</div>
 </template>
 
 <script>
@@ -14,3 +14,9 @@ export default {
 	},
 };
 </script>
+
+<style>
+.error {
+	padding: 15px 0;
+}
+</style>

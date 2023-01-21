@@ -1,16 +1,16 @@
 <template>
 	<div class="article-page">
 		<div class="banner">
+			<mcv-loading v-if="isLoading" />
 			<div class="container" v-if="data">
 				<h1>{{ data.title }}</h1>
 
-				<McvArticleMeta :article="data" />
+				<mcv-article-meta :article="data" />
 			</div>
 		</div>
 
 		<div class="container page">
-			<McvLoading v-if="isLoading" />
-			<McvError v-if="error" :message="error" />
+			<mcv-error v-if="error" :message="error" />
 			<div class="row article-content" v-if="data">
 				<div class="col-xs-12">
 					<div>
@@ -19,14 +19,14 @@
 						</p>
 					</div>
 
-					<McvTagList v-if="data.tagList.length > 1" :tagList="data.tagList" />
+					<mcv-tag-list v-if="data.tagList.length > 1" :tagList="data.tagList" />
 				</div>
 			</div>
 
 			<hr />
 
 			<div class="article-actions" v-if="data">
-				<McvArticleMeta :article="data" />
+				<mcv-article-meta :article="data" />
 			</div>
 
 			<!-- Comments section -->

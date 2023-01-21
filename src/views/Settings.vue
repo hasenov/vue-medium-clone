@@ -6,7 +6,7 @@
 					<h1 class="text-xs-center">Your Settings</h1>
 					<ul class="error-messages"></ul>
 
-					<McvValidationErrors v-if="validationErrors" :validationErrors="validationErrors" />
+					<mcv-validation-errors v-if="validationErrors" :validationErrors="validationErrors" />
 
 					<form @submit.prevent="onSubmit">
 						<fieldset>
@@ -80,6 +80,13 @@ export default {
 		onSubmit() {
 			this.updateCurrentUser({
 				currentUserInput: this.form,
+			}).then((user) => {
+				this.$router.push({
+					name: "userProfile",
+					params: {
+						slug: user.username,
+					},
+				});
 			});
 		},
 		onLogout() {

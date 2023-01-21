@@ -41,7 +41,7 @@
 				<i class="ion-plus-round"></i> Unfollow
 				{{ article.author.username }}
 			</button>
-			<McvAddToFavorites :isFavorited="article.favorited" :articleSlug="article.slug" :favoritesCount="article.favoritesCount" isWithTitle="true" />
+			<mcv-add-to-favorites :isFavorited="article.favorited" :articleSlug="article.slug" :favoritesCount="article.favoritesCount" :isWithTitle="true" />
 		</span>
 	</div>
 </template>
